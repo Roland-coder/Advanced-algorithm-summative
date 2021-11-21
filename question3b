@@ -12,5 +12,5 @@ def encryption(n):
         else:
             matrix[2].append(n[i])
             counter = 0
-    return ''.join(matrix[1])
+    return ''.join(matrix[0])+''.join(matrix[1])+''.join(matrix[2])
 print(encryption('Plain text'))
