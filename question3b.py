@@ -2,7 +2,8 @@ def encryption(n):
     # initialize counter variable
     counter = 0
     
-    # initialize 3-d array
+    # initialize 2-d array with three elements
+    
     matrix = [[],[],[]]
     # for loop that runs to the length of the input, n
     for i in range(0,len(n)):
