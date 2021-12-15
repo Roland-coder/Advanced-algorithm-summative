@@ -10,7 +10,7 @@ def encryption(n):
             matrix[0].append(n[i])
             
         else:
-            # else append the value of n with index as the loop operation to the second array in the matri
+            # else append the value of n with index as the loop operation to the second array in the matrix
             matrix[1].append(n[i])
             
             # # join all elements in first and second array into individual strings
