@@ -47,14 +47,14 @@ class Graph:
 
 
 # Dijkstra class to check and calculate the shortest distance between all vertices that have been solved
-class Dijkstra:
+class AllPaths:
     
     # initializing graph that would be used in functions
     def __init__(self, graph):
         self.graph = graph
 
     # function to calculate and update adjacent distances that are shortest from satrt vertex to a particular vertex
-    def calculate(self, start):
+    def calculate_distance(self, start):
         # dictionary that holds nodes and their shortest distances from the first node that have been solved
         solved = {start : 0}
         # initailzing a dictionary that holds the adjacent nodes in the graph from the starting point, the variable holds a queue a priority queue data structure
@@ -96,12 +96,12 @@ def shortestReach(n,edges,s):
         graph.get_vertex(start).add_edge(end, dist)
         # on that same vertex, use the node to and add same edge now with the node from and the distance between them
         graph.get_vertex(end).add_edge(start, dist)
-    # pass graph to our dijkstra class
-    dijkstra = Dijkstra(graph)
+    # pass graph to our AllPaths class
+    allpaths = AllPaths(graph)
     # stating the starting point on our graph
     start = s
     # use the disktra calculate distances function to get all distances from the start node to all other nodes on the graph
-    distances = dijkstra.calculate(start)
+    distances = allpaths.calculate_distance(start)
      # since distances is a dictionary and the first key in that dictionary is the start index with value as zero, hence we delete it from the dictionary
     del distances[s]
     # sorting the dictionary by the keys
