@@ -1,4 +1,4 @@
-def grade(n):
+def gradingStudents(n):
     
     # if n is less than 38 then return n 
     if n <38:
@@ -12,4 +12,4 @@ def grade(n):
         else:
             #else return the sum of n and the difference between 5 and a
             return n+(5-a)
-print(grade(38))
+print(gradingStudents(38))
