@@ -55,40 +55,67 @@ class Dijkstra:
 
     # function to calculate and update adjacent distances that are shortest from satrt vertex to a particular vertex
     def calculate(self, start):
+        # dictionary that holds nodes and their shortest distances from the first node that have been solved
         solved = {start : 0}
+        # initailzing a dictionary that holds the adjacent nodes in the graph from the starting point, the variable holds a queue a priority queue data structure
         adjacents = queue.PriorityQueue()
+        # updating all adjacent points around the starting node
         self.update_adjacents(start, solved, adjacents)
+        # while loop that runs so long as the list of adjacents is not empty
         while not adjacents.empty():
+            # get distance and value of the adjacent node
             (distance, value) = adjacents.get()
+            # if the adjacent value already in solved then we continue
             if value in solved:
                 continue
+             # add node and distance to our dictionary of solved nodes
             solved[value] = distance
+            # Update the adjacents nodes to the list of adjacents
             self.update_adjacents(value, solved, adjacents)
+            # return dictionary containing solved 
         return solved
 
+    # function that updatess adjacent nodes
     def update_adjacents(self, parent, solved, adjacents):
+        # get all edges in the graph
         edges = self.graph.get_vertex(parent).get_edges()
+        # add new node, distance, orevious slved distance of parent node plus the new distance 
         for value, distance in edges.items():
             adjacents.put((solved[parent] + distance, value))
 
+# short reach function that actually does most of the required task by using the classes created above
 def shortestReach(n,edges,s):
+    # initialize graph by passing in the number of nodes
     graph = Graph(n)
     
+    # loop through from 0 to he number of nodes
     for i in range(n):
+        # get vertex from, vertex, and the distance between two of them frm=om the matrix of edges passed into the function
         start,end,dist = edges[i][0], edges[i][1], edges[i][2]
+        # add vertex to the graph by specifying the end of that vertex and the distance
         graph.get_vertex(start).add_edge(end, dist)
+        # on that same vertex, use the node to and add same edge now with the node from and the distance between them
         graph.get_vertex(end).add_edge(start, dist)
+    # pass graph to our dijkstra class
     dijkstra = Dijkstra(graph)
+    # stating the starting point on our graph
     start = s
+    # use the disktra calculate distances function to get all distances from the start node to all other nodes on the graph
     distances = dijkstra.calculate(start)
-    distance = list()
-    for i in range(1, n + 1):
-        if i == start:
-            continue
-        if i not in distances:
-            distance.append(-1)
-        else:
-            distance.append(distances[i])
+     # since distances is a dictionary and the first key in that dictionary is the start index with value as zero, hence we delete it from the dictionary
+    del distances[s]
+    # sorting the dictionary by the keys
+    distancess = sorted(distances)
+    
+    # initializing empty list that holds the distances for the final out put
+    distance = []
+    
+    # loop through our sorted dictionary list
+    for i in range(len(distancess)):
+        # use value of sorted dictionary list as index in our distances dictionary to get value and store in empty list above
+        distance.append(distances[distancess[i]])
+    
+    # display list as strings
     return ' '.join(map(str, distance))
 
 
@@ -99,10 +126,4 @@ s = 1
 
 print(shortestReach(n,edges,s))
 
-#1
-#4 4
-#1 2 24
-#1 4 20
-#1 3 3
-#3 4 12
-#1
+
